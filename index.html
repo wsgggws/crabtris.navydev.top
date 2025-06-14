@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>俄罗斯方蟹</title>
+    <link rel="stylesheet" href="crabtris.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>俄罗斯方蟹</h1>
+        <div class="game-board-container">
+            <canvas id="game-board" width="440" height="200"></canvas>
+            <div class="crab-bottom"></div>
+        </div>
+        <div class="game-info">
+            <div class="score-box">
+                <p>分数: <span id="score">0</span></p>
+                <p>等级: <span id="level">1</span></p>
+            </div>
+            <div class="controls">
+                <h3>操作说明</h3>
+                <div class="control-instructions">
+                    <p>h/r/R/H: 旋转方块(↻↺)</p>
+                    <p>SPACE: 快速到最右(→→)</p>
+                    <p>l/L: 向右移动(→)</p>
+                    <p>k/K: 向上移动(↑)</p>
+                    <p>j/J: 向下移动(↓)</p>
+                    <p>P: 暂停/继续游戏</p>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="start-btn">开始游戏</button>
+                <button id="pause-btn">暂停</button>
+            </div>
+        </div>
+        <div class="mobile-controls">
+            <button id="rotate-btn">旋转</button>
+            <div class="direction-controls">
+                <button id="up-btn">↑</button>
+                <button id="down-btn">↓</button>
+            </div>
+            <button id="right-btn">→</button>
+            <button id="drop-btn">最右</button>
+        </div>
+        <div class="game-motto">蟹如人生矣，戏T!</div>
+    </div>
+    <script src="crabtris.js"></script>
+</body>
+</html>
