@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #d32f2f;
+}
+
+.game-board-container {
+    position: relative;
+    margin: 0 auto;
+    width: 440px;
+}
+
+#game-board {
+    background-color: #000;
+    border: 2px solid #666;
+    margin-bottom: 10px;
+}
+
+.crab-bottom {
+    height: 80px;
+    background-image: url('crab-bottom.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.score-box {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.controls {
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.controls h3 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.control-instructions p {
+    margin: 5px 0;
+    text-align: left;
+}
+
+.buttons {
+    margin: 15px 0;
+}
+
+button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #b71c1c;
+}
+
+.mobile-controls {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.mobile-controls button {
+    margin: 5px;
+    font-size: 20px;
+    min-width: 60px;
+}
+
+.direction-controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.game-motto {
+    margin-top: 20px;
+    font-style: italic;
+    color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-board-container {
+        width: 100%;
+    }
+    
+    #game-board {
+        width: 100%;
+        height: auto;
+    }
+    
+    .mobile-controls {
+        display: flex;
+    }
+    
+    .buttons button {
+        padding: 8px 15px;
+    }
+    
+    .controls {
+        display: none; /* 这会在移动设备上隐藏操作说明 */
+    }
+}
