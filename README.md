@@ -2,11 +2,13 @@
 
 俄罗斯方蟹 = Crab（蟹）+ Tetris（俄罗斯方块）
 
+一个独特的横向俄罗斯方块游戏，以螃蟹为主题。在这个游戏中，方块会从左向右移动，你需要通过上下移动和旋转来适应游戏区域，消除完整的列并获得高分。
+
 ## 运行
 
 ```bash
 gcc -o crabtris crabtris.c
-./carbtris
+./crabtris  # 注意：不是 carbtris
 ```
 
 ## 效果
