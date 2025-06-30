@@ -1,6 +1,10 @@
 name: Deploy Crabtris
 
-on: [push, pull_request]
+# on: [push, pull_request]
+on:
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   deploy:
@@ -31,7 +35,7 @@ jobs:
       - name: 🚀 Deploy on server
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.REMOTE_IP }} <<EOF
-            cp -f deploy/crabtris.navydev.top/config/nginx/conf.d/crabtris.navydev.top.conf deploy/navydev.top/config/nginx/conf.d/crabtris.navydev.top.conf
+            cp -f deploy/crabtris.navydev.top/config/nginx/conf.d/*.conf deploy/navydev.top/config/nginx/conf.d/
             cd deploy/navydev.top
-            docker compose restart nginx
+            sh scripts/restart.sh
           EOF
