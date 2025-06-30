@@ -50,3 +50,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+!config/nginx/conf.d/
+!config/nginx/conf.d/*.conf
