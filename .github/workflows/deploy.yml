@@ -1,6 +1,5 @@
 name: Deploy Crabtris
 
-# on: [push, pull_request]
 on:
   push:
     tags:
@@ -9,22 +8,13 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 📤 Copy project files to server via SCP
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.REMOTE_IP }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "./,!notes,!tests,!png,!.git,!.github"
-          target: "deploy/crabtris.navydev.top/"
-          strip_components: 0
-
       - name: Setup SSH
-        uses: webfactory/ssh-agent@v0.7.0
+        uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -32,10 +22,42 @@ jobs:
         run: |
           ssh-keyscan -H ${{ secrets.REMOTE_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🚀 Deploy on server
+      - name: 📦 Deploy entire repo to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/root/deploy/crabtris.navydev.top/"
+          strip_components: 0
+          overwrite: true
+          rm: true
+
+      - name: 📤 Copy static files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "index.html,crabtris.css,crabtris.js,README.md"
+          target: "/var/www/crabtris.navydev.top/"
+          strip_components: 0
+          overwrite: true
+
+      - name: 📝 Copy nginx config to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.REMOTE_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "config/nginx/conf.d/*"
+          target: "/etc/nginx/conf.d/"
+          strip_components: 3
+          overwrite: true
+
+      - name: 🔄 Reload nginx
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.REMOTE_IP }} <<EOF
-            cp -f deploy/crabtris.navydev.top/config/nginx/conf.d/*.conf deploy/navydev.top/config/nginx/conf.d/
-            cd deploy/navydev.top
-            sh scripts/restart.sh
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.REMOTE_IP }} << 'EOF'
+            nginx -t && systemctl reload nginx
           EOF
